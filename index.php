@@ -83,7 +83,7 @@ EOD;
 
   if ( isset( $_POST['amq'] ) && $_POST['amq'] == "send" ) {
     $amq_result = "";
-    $stomp = new Client('tcp://broker-amq-mesh.amq.svc:61616');
+    $stomp = new Client('tcp://broker-amq-tcp.amq.svc:61616');
     $stomp->setLogin($AMQ_USER, $AMQ_PASS);
     try {
       $stomp->connect();
