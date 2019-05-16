@@ -37,6 +37,11 @@ EOD;
   if ( $_ENV["TODO_AMQ_PASS"] ) {
     $AMQ_PASS = $_ENV["TODO_AMQ_PASS"];
   }
+
+  if ( $_ENV["AMQ_URL"] ) {
+    $AMQ_URL = $_ENV["AMQ_URL"];
+  }
+
   $connection = pg_connect("host=".$DB_SERVER." dbname=".$DB_NAME." user=".$DB_USER." password=".$DB_PASS);
   if ( !$connection ) {
     die("Database connection failed: " . pg_last_error());
@@ -83,7 +88,7 @@ EOD;
 
   if ( isset( $_POST['amq'] ) && $_POST['amq'] == "send" ) {
     $amq_result = "";
-    $stomp = new Client('tcp://broker-amq-stomp.amq.svc:61613');
+    $stomp = new Client($AMQ_URL);
     $stomp->setLogin($AMQ_USER, $AMQ_PASS);
     try {
       $stomp->connect();
